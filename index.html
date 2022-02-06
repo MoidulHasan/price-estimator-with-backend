@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- Swipers Styles CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- JQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- custom js -->
+    <script src="/scripts/common.min.js"></script>
+    <title>Price Estimator</title>
+</head>
+
+<body>
+
+    <div class="text-center">
+        <div class="slide-content">
+            <h1 id="ctl00_BannerContent_BannerH1">Pricing Estimator</h1>
+            <p>Click the green button to get started!</p>
+            <div class="btn-group btn-group-lg btn-group p-3" role="group">
+                <a class="btn btn-default btn-success" role="button" id="launch-modal" data-bs-toggle="modal" data-bs-target="#peModal">Launch Pricing Estimator</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- START: NEW PRICING ESTIMATOR MODALS -->
+
+    <!--START: Pricing Estimator Modal-->
+    <div class="modal fade multi-step" role="dialog" tabindex="-1" id="peModal" style="text-align: center;" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><button class="btn close" id="back-button" type="button" aria-label="Back" data-prev-step="1" data-this-step><i
+                            class="fa fa-chevron-left" style="font-size: 14px;"></i></button>
+                    <p class="modal-title jk-phone-logo"> 1-888-888-JUNK</p>
+                    <div role="group" class="btn-group d-none"><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="1" onclick="sendEvent(&quot;#peModal&quot;, 1, &quot;forward&quot;)">Scr
+                            1</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="2" onclick="sendEvent(&quot;#peModal&quot;, 2, &quot;forward&quot;)">Scr
+                            2</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="3" onclick="sendEvent(&quot;#peModal&quot;, 3, &quot;forward&quot;)">Scr
+                            3</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="4" onclick="sendEvent(&quot;#peModal&quot;, 4, &quot;forward&quot;)">Scr
+                            4</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="5" onclick="sendEvent(&quot;#peModal&quot;, 5, &quot;forward&quot;)">Scr
+                            5</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="6" onclick="sendEvent(&quot;#peModal&quot;, 6, &quot;forward&quot;);">Scr
+                            6</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="7" onclick="sendEvent(&quot;#peModal&quot;, 7, &quot;forward&quot;)">Scr
+                            7</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="8" onclick="sendEvent(&quot;#peModal&quot;, 8)">Scr
+                            8</button><button class="btn btn-primary step step-1 step-2 step-3 step-4 step-5 step-6 step-7 step-8" type="button" data-step="8" onclick="resetCustomerData();">reset customer
+                            data</button></div><span class="m-progress-stats d-none">Text</span><span class="m-progress-current d-none">Text</span>
+                </div>
+                <div class="modal-body step step-1" id="choose-zipcode">
+                    <div class="container-fluid">
+                        <h2>What&#39;s Your Zip Code?</h2>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-3"></div>
+                            <div class="col-sm-4 col-xs-6 p-0">
+                                <div class="form-group"><input class="input-lg" type="text" id="pe-zip-input" maxlength="7" /><button class="btn btn-success" id="pe-zip-submit-btn" type="button"><i class="fa fa-arrow-right"></i></button></div>
+                            </div>
+                            <div class="col-sm-4 col-xs-3"></div>
+                        </div>
+                    </div>
+                    <div id="zip-validation-msg"></div>
+                    <div class="col-md-12">
+                        <p>** This pricing estimator provides an online estimate. The final price will be determined onsite by our staff. The price for heavy material, such as dirt, gravel, roofing material, and concrete, cannot be estimated with this tool
+                            as this material is charged by the bed load.</p>
+                    </div>
+                </div>
+                <div class="modal-body step step-2 service-selection" id="service-selection">
+                    <div class="container-fluid">
+                        <div class="row header-block">
+                            <div class="col-md-12">
+                                <h2 class="p-0 m-0">Choose Your Service</h2>
+                                <h4><span class="jk-location">{{location}}</span><span> (</span><span class="jk-zip-code">{{zipCode}}</span><span>)</span></h4>
+                            </div>
+                        </div>
+                        <div class="row selection-options">
+                            <div class="col-sm-6" id="full-service">
+                                <div class="panel panel-default" id="panel-full-service">
+                                    <div class="panel-body">
+                                        <div class="col-sm-12">
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="visible-xs-block d-none-sm">
+                                                        <h2>Full-Service</h2>
+                                                        <p><strong>We Do All the Work</strong></p>
+                                                    </div><img class="img-responsive" src="/images/jk-service-full-service.jpg" />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="d-none-xs">
+                                                        <h2>Full-Service</h2>
+                                                        <p><strong>We Do All the Work</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="inner-shadow service-bullets pt-3 pb-3">
+                                                        <ul>
+                                                            <li>Fast &amp; Friendly Service</li>
+                                                            <li>Free, upfront, transparent estimates</li>
+                                                            <li>Pay ONLY for the space you use!</li>
+                                                            <li>Low price guarantee</li>
+                                                            <li>90% of the times we close deals</li>
+                                                            <li>1 Junk King truck = 6 regular pickup truck loads
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer"><button class="btn btn-success btn-block" id="btn-full-service" type="button">Come Get My Items</button></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" id="self-service">
+                                <div class="panel panel-default" id="panel-self-service">
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="visible-xs-block d-none-sm">
+                                                        <h2>Self-Service</h2>
+                                                        <p><strong>3-Day Dumpster Rental</strong></p>
+                                                    </div><img class="img-responsive" src="/images/jk-service-dumpster.jpg" />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="d-none-xs">
+                                                        <h2>Self-Service</h2>
+                                                        <p><strong>3-Day Dumpster Rental</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="inner-shadow service-bullets pt-3 pb-3">
+                                                        <ul>
+                                                            <li>Fair, flexible pricing</li>
+                                                            <li>Convenient drop-off</li>
+                                                            <li>Pay ONLY for the space you use!</li>
+                                                            <li>Driveway friendly</li>
+                                                            <li>Ranked #1 nationally</li>
+                                                            <li>1 Junk King dumpster = 4 regular pickup truck loads
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer"><button class="btn btn-success btn-block" id="btn-jk-dumpster" type="button">I&#39;ll Do it Myself</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step step-3 service-selection" id="service-selection-items-truckloads">
+                    <div class="container-fluid">
+                        <div class="row header-block">
+                            <div class="col-md-12">
+                                <h2 class="p-0 m-0">By Items or Pickup Truck Loads?</h2>
+                                <h4><span class="jk-location">{{location}}</span><span> (</span><span class="jk-zip-code">{{zipCode}}</span><span>)</span></h4>
+                            </div>
+                        </div>
+                        <div class="row selection-options">
+                            <div class="col-sm-6 service-column">
+                                <div class="panel panel-default p-xs-3" id="panel-add-items">
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <h2 class="visible-xs-block jk-red">Add My Items</h2>
+                                                    <div style="background-color:#f9f9f9;"><img class="img-responsive" src="/images/service_add_items.png" style="margin:0 auto;" /></div>
+                                                    <h4 class="d-none-xs jk-red">Add My Items</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="inner-shadow service-bullets pt-3 pb-3">
+                                                        <p><strong>Recommended for:</strong></p>
+                                                        <ul>
+                                                            <li>Furniture Removal</li>
+                                                            <li>Appliance Disposal &amp; Recycling</li>
+                                                            <li>Electronics Disposal &amp; Recycling</li>
+                                                            <li>Mattress Disposal</li>
+                                                            <li>Hot Tub Disposal</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer"><button class="btn btn-success btn-block" id="btn-fs-add-items" type="button">Add My Items</button></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 service-column">
+                                <div class="panel panel-default p-xs-3" id="panel-pickup-truckloads">
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <h2 class="visible-xs-block jk-red">By Pickup Truck Loads
+                                                    </h2>
+                                                    <div style="background-color:#f9f9f9;"><img class="img-responsive" src="/images/service_truckloads.png" style="margin:0 auto" /></div>
+                                                    <h4 class="d-none-xs jk-red">By Pickup Truck Loads</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row bg-light">
+                                                <div class="col-md-12">
+                                                    <div class="inner-shadow service-bullets pt-3 pb-3">
+                                                        <p><strong>Recommended for:</strong></p>
+                                                        <ul>
+                                                            <li>Yard Waste Removal</li>
+                                                            <li>Construction Waste Removal</li>
+                                                            <li>Foreclosure Clean Outs</li>
+                                                            <li>Trash/Garbage Removal</li>
+                                                            <li>Garage Clean Outs</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer"><button class="btn btn-success btn-block" id="btn-fs-truckloads" type="button">By Pickup Truck Loads</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step step-4" id="service-truckloads">
+                    <div class="container-fluid">
+                        <div class="row header-block">
+                            <div class="col-sm-7">
+                                <h2 class="p-0 m-0">How Many Loads?</h2>
+                            </div>
+                            <div class="col-sm-5 d-none-xs pr-0">
+                                <p class="pt-3 m-0">Tap the +/- buttons to add/remove</p>
+                            </div>
+                        </div>
+                        <div class="row subheader-block">
+                            <div class="col-xs-8">
+                                <h5 class="mt-0"><span class="jk-location">{{location}}</span><span>
+                                        (</span><span class="jk-zip-code">{{zipCode}}</span><span>)</span></h5>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="dropdown pe-dropdown"><button class="btn btn-link btn-myitems" data-toggle="dropdown" aria-expanded="false" type="button">My Items <i
+                                            class="fa fa-chevron-circle-down" style="margin-left: 8;"></i></button>
+                                    <ul class="dropdown-menu pe-dropdown-menu">
+                                        <li><a class="no-items">No items</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bg-light" style="background: #fff;">
+                            <div class="col-md-12">
+                                <h6><span>*</span><span class="jk-red">1</span><span> Junk King Truck =
+                                    </span><span class="jk-red">6 </span><span>Regular Pickup Truck Loads</span>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="row bg-light" id="row-pickup-trucks">
+                            <div class="col-xs-6 truckload" id="pickups-full-counter"><img src="/images/pickup-truck-full.png" />
+                                <div><span class="count jk-red">0</span><span>Full Pickup Truck Load(s)</span>
+                                </div>
+                                <div class="btn-group" role="group"><a class="btn btn-xs" role="button" data-action="remove-full"><em class="ico-btn-minus"></em></a><a class="btn btn-xs" role="button" data-action="add-full"><em
+                                            class="ico-btn-plus"></em></a></div>
+                            </div>
+                            <div class="col-xs-6 truckload" id="pickups-half-counter"><img src="/images/pickup-truck-half.png" />
+                                <div><span class="count jk-red">0</span><span>Half Pickup Truck Load(s)</span>
+                                </div>
+                                <div class="btn-group" role="group"><a class="btn btn-xs" role="button" data-action="remove-half"><em class="ico-btn-minus"></em></a><a class="btn btn-xs" role="button" data-action="add-half"><em
+                                            class="ico-btn-plus"></em></a></div>
+                            </div>
+                        </div>
+                        <div class="row inner-shadow bg-light">
+                            <div class="col-md-12">
+                                <div id="jk-truck-container">
+                                    <div class="jk-truck-image">
+                                        <div id="progress_bar" class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width:0%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3><span id="jk-progress-string" class="jk-red">0% </span><span>FULL JUNK KING
+                                        TRUCK</span></h3>
+                            </div>
+                        </div>
+                        <div class="row estimate-bar bg-light">
+                            <div class="col-xs-9 text-left">
+                                <h4><span class="d-none-xs d-none-sm">Your </span><span>Estimate: </span><span class="jk-red tl-price-range price-range">$0</span></h4>
+                            </div>
+                            <div class="col-xs-3"><button class="btn btn-link btn-sm btn-reset btn-reset-tl" type="button" onclick="resetTruckloadsView();"><span>Clear </span><span
+                                        class="d-none-xs">Items </span><i class="fa fa-rotate-left jk-red"></i></button>
+                            </div>
+                        </div>
+                        <div class="row button-block">
+                            <div class="col-sm-6">
+                                <div class="online-discount-display">
+                                    <h3 class="m-0">Book Now &amp; <span class="jk-gold">Save $<span
+                                                class="online-discount-amount jk-gold">{{disc}}</span>!</span>
+                                        <span>*</span>
+                                    </h3>
+                                    <p class="small m-0">* excludes jobs $99 and under</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6"><button class="btn btn-success btn-block disabled" id="btn-book-jk-truck" type="button" onclick="sendEvent(&#39;#peModal&#39;,7, &quot;forward&quot;)">Book
+                                    It!</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step step-5" id="service-ai-basic-info">
+                    <div class="row header-block">
+                        <div class="col-md-12">
+                            <h2>Great!<br />Let&#39;s Get Some Info. </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-1"></div>
+                        <div class="col-sm-6 col-xs-10">
+                            <div class="form-group"><input class="input-lg" type="text" id="pe-name-input-dropoff" placeholder="First &amp; Last Name" data-validate-as="name" data-error="Please enter a valid First &amp; Last Name" /></div>
+                            <div class="form-group"><input class="input-lg" type="text" id="pe-email-input-dropoff" placeholder="Email Address" inputmode="email" data-validate-as="email" data-error="Please enter a valid email address" />
+                            </div>
+                            <div id="dropoff-validation-msg"></div>
+                        </div>
+                        <div class="col-sm-3 col-xs-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-1"></div>
+                        <div class="col-sm-6 col-xs-10"><button class="btn btn-success btn-block btn-success" id="btn-start-ai" type="button">Let&#39;s Get Started</button></div>
+                        <div class="col-sm-3 col-xs-1"></div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:15px;">
+                        <p>** This pricing estimator provides an online estimate. The final price will be determined onsite by our staff. The price for heavy material, such as dirt, gravel, roofing material, and concrete, cannot be estimated with this tool
+                            as this material is charged by the bed load.</p>
+                    </div>
+                </div>
+                <div class="modal-body step step-6" id="service-ai-main-ui">
+                    <div class="container-fluid">
+                        <div class="row header-block">
+                            <div class="col-sm-6">
+                                <h2 class="p-0 m-0">Add Your Items</h2>
+                            </div>
+                            <div class="col-sm-6 d-none-xs pr-0">
+                                <p class="pt-3 m-0">Swipe left &amp; right. Tap the +/- buttons to add.</p>
+                            </div>
+                        </div>
+                        <div class="row subheader-block">
+                            <div class="col-xs-8">
+                                <h5 class="mt-0"><span class="jk-location">{{location}}</span><span>
+                                        (</span><span class="jk-zip-code">{{zipCode}}</span><span>)</span></h5>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="dropdown pe-dropdown"><button class="btn btn-link btn-myitems" data-toggle="dropdown" aria-expanded="false" type="button">My Items <i
+                                            class="fa fa-chevron-circle-down" style="margin-left: 8;"></i></button>
+                                    <ul class="dropdown-menu pe-dropdown-menu">
+                                        <li><a class="no-items">No items</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul id="categories-slider" class="categories-slider"></ul>
+                            </div>
+                        </div>
+                        <div class="row bg-light estimate-bar">
+                            <div class="col-xs-9 text-left">
+                                <h4><span class="d-none-xs">Your </span><span>Estimate: </span><span class="jk-red ai-price-range price-range">$0</span></h4>
+                            </div>
+                            <div class="col-xs-3"><button class="btn btn-link btn-sm btn-reset btn-reset-ai" type="button" onclick="resetAddItemsView();"><span>Clear </span><span
+                                        class="d-none-xs">Items </span><i class="fa fa-rotate-left jk-red"></i></button>
+                            </div>
+                        </div>
+                        <div class="row inner-shadow bg-light" id="add-items-list">
+                            <div class="col-md-12">
+                                <ul id="items-slider" class="items-slider"></ul>
+                            </div>
+                        </div>
+                        <div class="row button-block">
+                            <div class="col-sm-6">
+                                <div class="online-discount-display">
+                                    <h3 class="m-0">Book Now &amp; <span class="jk-gold">Save $<span
+                                                class="online-discount-amount jk-gold">{{disc}}</span>!</span>
+                                        <span>*</span>
+                                    </h3>
+                                    <p class="small m-0">* excludes jobs $99 and under</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6"><button class="btn btn-success btn-block disabled" id="btn-book-ai" type="button" onclick="sendEvent(&#39;#peModal&#39;,7, &quot;forward&quot;)">Pick
+                                    These
+                                    Up</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step step-7" id="service-book">
+                    <div class="container-fluid">
+                        <div class="row header-block pb-3">
+                            <div class="col-sm-12 text-left">
+                                <div class="online-discount-display">
+                                    <h2 class="p-0 m-0">Book Now &amp; <span class="jk-gold">Save $<span
+                                                class="online-discount-amount jk-gold">{{disc}}</span>!</span>
+                                        <span>*</span>
+                                    </h2>
+                                    <p class="small m-0">* excludes jobs $99 and under</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row subheader-block pb-3">
+                            <div class="col-xs-8 text-left">
+                                <h5 class="mt-0"><span class="jk-location">{{location}}</span><span>
+                                        (</span><span class="jk-zip-code">{{zipCode}}</span><span>)</span></h5>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="dropdown pe-dropdown"><button class="btn btn-link btn-myitems" data-toggle="dropdown" aria-expanded="false" type="button">My Items <i
+                                            class="fa fa-chevron-circle-down" style="margin-left: 8;"></i></button>
+                                    <ul class="dropdown-menu pe-dropdown-menu"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row bg-light estimate-bar" style="margin: 0px -30px;">
+                            <div class="col-xs-12" style="text-align:center!Important;">
+                                <h4><span class="d-none-xs">Your </span><span>Estimate: </span><span class="jk-red final-price-range price-range">$0</span></h4>
+                            </div>
+                        </div>
+                        <div id="pe-booking-form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Let&#39;s Get the Details:</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" data-error="Please enter a First &amp; Last Name">
+                                    <div class="form-group"><input class="input-lg" type="text" id="pe-name-input-book" placeholder="First &amp; Last Name" autofocus data-validate-as="name" data-error="Please enter a First &amp; Last name" /></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group"><input class="input-lg" type="text" id="pe-email-input-book" placeholder="Email Address" inputmode="email" data-validate-as="email" data-error="Please enter a valid email address" /></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group"><input class="input-lg" type="text" id="pe-address-input-book" placeholder="Address" data-validate-as="address" data-error="Please enter a valid address" /></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group"><input class="input-lg" type="text" id="pe-phone-input-book" placeholder="Phone" inputmode="tel" data-validate-as="phone" data-error="please enter a valid phone number" /></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group"><input type="text" id="pe-date-input-book" class="input-lg" data-validate-as="book-date" data-error="Please enter a date" placeholder="-- Select Date --" inputmode="none" /></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group"><select class="input-lg disabled" id="pe-time-input-book" title="Select date first, then available times will show here" data-validate-as="book-time" data-error="Please pick a time">
+                                            <option value selected>-- Select Time --</option>
+                                        </select></div>
+                                </div>
+                            </div>
+                            <div id="pe-dumpster-tc-cb-row" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="checkbox"><input type="checkbox" id="pe-dumpster-tc-cb" data-validate-as="dumpster-tc" data-error="Please accept terms and conditions" /><label for="pe-dumpster-tc-cb">I accept the dumpster rental <a href="#"
+                                                    target="_blank">terms and conditions</a></label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row button-block">
+                                <div class="col-sm-3 col-xs-1 d-none-xs"></div>
+                                <div class="col-sm-6 col-xs-12"><button class="btn btn-success btn-block book-it-btn" id="btn-book-appointment" type="button">Book It!<i
+                                            class="bf-spinner fa fa-spinner fa-spin"></i></button></div>
+                                <div class="col-sm-3 col-xs-1 d-none-xs"></div>
+                            </div>
+                            <div class="row button-block">
+                                <div class="col-md-12">
+                                    <p>** This pricing estimator provides an online estimate. The final price will be determined onsite by our staff. The price for heavy material, such as dirt, gravel, roofing material, and concrete, cannot be estimated
+                                        with this tool as this material is charged by the bed load.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body step step-8" id="confirmation">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Thanks!</h2>
+                                <h5>Your request has been booked!</h5>
+                                <p>You will receive a confirmation email with all the details about this service.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row bg-light">
+                                            <div class="col-md-6">
+                                                <h5>Confirmation #</h5>
+                                                <div id="conf-confirmation-number">
+                                                    <p>{{confNumber}}</p>
+                                                </div>
+                                                <h5>Your Info</h5>
+                                                <div id="conf-customer-info">
+                                                    <p>{{customerInfo}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5>Your Items</h5>
+                                                <ul id="conf-items-list"></ul>
+                                                <h5>Location</h5>
+                                                <p class="jk-location">{{jkLocation}}</p>
+                                                <h5><span>Estimate: </span><span class="final-price-range">{{finalPriceRange}}</span>
+                                                </h5>
+                                                <p>*Final cost with your $20 discount will be reflected on your receipt.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row button-block">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8"><button class="btn btn-success btn-block" type="button" data-dismiss="modal">Close Window</button></div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p id="footer-message"></p>
+                    <div id="pricing-estimator"><input type="hidden" id="bf-zip" /></div>
+                    <div id="running-totals"><input type="hidden" id="book-type" /><input type="hidden" id="customer-zip" value="0" /><input type="hidden" id="customer-name" value="0" /><input type="hidden" id="customer-email" value="0" /><input type="hidden" id="total-items"
+                            value="0" /><input type="hidden" id="items-running-total" /><input type="hidden" id="pickup-trucks-total" value="0" /><input type="hidden" id="pickup-trucks-full" value="0" /><input type="hidden" id="pickup-trucks-half" value="0"
+                        /><input type="hidden" id="total-volume" value="0" /><input type="hidden" id="price-per-eighth" value="0" /><input type="hidden" id="estimated-price" value="0" /><input type="hidden" id="pricing-data" /><input type="hidden" id="dumpster-data"
+                        /><input type="hidden" id="is-dumpster-location" value="false" /><input type="hidden" id="BONotesHF" value /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END: Pricing Estimator Modal-->
+    <!--START: Pricing Estimator Dialogs-->
+    <div class="modal fade dialog" role="dialog" tabindex="-1" id="large-volume-dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3 class="p-0 m-0">Custom Quote</h3>
+                </div>
+                <div class="modal-body text-center">
+                    <p>It appears that your job is fairly large and you will most likely benefit from a custom quote. Please call us to discuss your job.<br /></p>
+                    <p class="modal-title jk-phone-logo"> 1-888-888-Junk</p>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade dialog" role="dialog" tabindex="-1" id="empty-items-dialog" data-this-step="0" data-prev-step="0">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3 class="p-0 m-0">Caution</h3>
+                </div>
+                <div class="modal-body text-center">
+                    <h5>Leaving this page will clear your list of items<br /></h5>
+                </div>
+                <div class="modal-footer text-center pb-4"><button class="btn btn-success leave-page mr-2" type="button">Leave Page</button><button class="btn btn-success ml-2" type="button" data-dismiss="modal">Cancel</button></div>
+            </div>
+        </div>
+    </div>
+    <!--END: Pricing Estimator Dialogs-->
+
+    <!-- END: NEW PRICING ESTIMATOR MODALS -->
+
+
+    <!-- Pricing Estimator Stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:400,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Suez+One">
+    <!--<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">-->
+    <link rel="stylesheet" href="/styles/lightslider.min.css">
+    <link rel="stylesheet" href="/styles/pricing-estimator-ccd.compiled.css">
+
+    <!-- Pricing Estimator Scripts -->
+    <script src="/scripts/lightslider.min.js"></script>
+    <script src="/scripts/multi-step-modal.js"></script>
+    <script src="/pricing-estimator.js"></script>
+    <script defer src="https://connect.podium.com/widget.js#API_TOKEN=fd648ef0-fd29-4712-9f8c-f45d6241f7f3" id="podium-widget" data-api-token="fd648ef0-fd29-4712-9f8c-f45d6241f7f3"></script>
+
+
+    <!-- <script type="text/javascript">
+        $(document).ready(function() {
+            $('.dateinput').datepicker({
+                format: "yyyy/mm/dd"
+            });
+        });
+    </script> -->
+
+    <!-- Bootstrap Scripts -->
+    <script src=" https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js " integrity=" sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB " crossorigin=" anonymous "></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js " integrity=" sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13 " crossorigin=" anonymous "></script>
+
+    <!-- Swiper JS -->
+    <script src=" https://unpkg.com/swiper/swiper-bundle.min.js "></script>
+
+    <!-- JQuery CDN -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(" .mySwiper ", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            slidesPerGroup: 1,
+            loop: false,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: " .swiper-pagination ",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: " .swiper-button-next ",
+                prevEl: " .swiper-button-prev ",
+            },
+            breakpoints: {
+                360: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                480: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                },
+                800: {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+            },
+        });
+    </script>
+
+    <!-- Custom Script Start -->
+    <!-- <script src="./estimator.js"></script> -->
+    <!-- Custom Script End -->
+</body>
+
+</html>
