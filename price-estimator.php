@@ -141,8 +141,8 @@
                                             <li>Garage Clean Outs</li>
                                         </ul>
                                     </div>
-                                    <button type="button" class="col-12 btn btn-lg px-5 btn-success m-0 text-white" id="add-by-Pickup-Truck-Loads">
-                                        Add My Items
+                                    <button id="add-by-Pickup-Truck-Loads" type="button" class="col-12 btn btn-lg px-5 btn-success m-0 text-white" >
+                                        By Pickup Truck Loads
                                     </button>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                     <div class="row">
                         <div class="col-sm-4 col-xs-1"></div>
                         <div class="col-sm-4 col-xs-10">
-                            <button id="btn-start-add-item" class="btn form-control button-custom fw-bold border-0 text-white" type="button">
+                            <button id="btn-start-estimation" class="btn form-control button-custom fw-bold border-0 text-white" type="button">
                                 Let's Get Started
                             </button>
                         </div>
