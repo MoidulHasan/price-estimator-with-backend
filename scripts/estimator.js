@@ -11,7 +11,7 @@ let currentPage = 1,
     finalEndingPrice = 0,
     finalDiscount = 0,
     dropDownListItem = "",
-    dropDownItems = "";
+    itemsList = [];
 
 let Order_info = {
     Client_info: {
@@ -19,11 +19,12 @@ let Order_info = {
         Email: "",
         Address: "",
         Phone: "",
-        ZipCode: ""
+        ZipCode: "",
     },
     Seervice_info: {
         Service_name: "",
-        Estimated_price: "",
+        Estimated_Starting_Price: "",
+        Estimated_Ending_Price: "",
         items_list: "",
         Service_date: "",
         Service_time: ""
@@ -103,9 +104,9 @@ $(document).ready(function() {
     $("#btn-start-estimation").click(function() {
         Order_info.Client_info.Name = $("#name-input").val();
         Order_info.Client_info.Email = $("#email-input").val();
-        if (Order_info.Client_info.Name == "" || Order_info.Client_info.Email == "") {
+        if (Order_info.Client_info.Name == "" || Order_info.Client_info.Email == "" || !isEmail(Order_info.Client_info.Email)) {
             swal({
-                title: "Please Enter Your Name and Email Address.",
+                title: "Please Enter Your Name and Valid Email Address.",
             });
         } else {
             getPricingData(zipCode);
@@ -206,6 +207,8 @@ $(document).ready(function() {
 
         //Update items in 'My Items' dropdown
         $(".dropdown-items").html(dropDownListItem);
+        // Update Item Lists
+        itemsList["Pickup Truck Load(s)"] = truck_total;
 
         // Enable/disable next step button
         var nextStepDisabled = truck_total <= 0 ? true : false;
@@ -260,7 +263,14 @@ $(document).ready(function() {
         }
     } // GetPricePickUP()
 
-
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!regex.test(email)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
     function resetPricingViews() {
@@ -321,7 +331,7 @@ $(document).ready(function() {
         $('.estemeted-rate').html("$0");
 
         // Build 'My Items' dropdown item
-        dropDownListItemTruck =
+        dropDownListItem =
             `<div id="pickup-truck" class="p-2 border-danger border-bottom-3 text-start">
                 <a href="#" class="bg-light p-2 m-0 text-decoration-none text-start border-1 border-danger border-bottom">
                     <span class="count">${truck_total}</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span>
@@ -329,7 +339,9 @@ $(document).ready(function() {
             </div>`;
 
         //Update items in 'My Items' dropdown
-        $(".dropdown-items").html(dropDownListItemTruck);
+        $(".dropdown-items").html(dropDownListItem);
+        // Update Item Lists
+        itemsList = [];
     }
 
     $(".btn-reset-truck").click(function() {
@@ -344,12 +356,8 @@ $(document).ready(function() {
     $(".btn-book-now").click(function() {
         $("#client-name").val(Order_info.Client_info.Name);
         $("#client-email").val(Order_info.Client_info.Email);
+
         goToPage(6);
-        // if (servicetype = "pickup") {
-
-        // } else if (servicetype = "items") {
-
-        // }
     });
 
     $("#client-booking-date").change(function() {
@@ -367,11 +375,27 @@ $(document).ready(function() {
         var phone = $("#client-phone").val();
         var date = $("#client-booking-date").val();
         var time = $("#client-time").val();
-        if (name == "" || email == "" || address == "" || phone == "" || date == "" || time == "") {
+        if (name == "" || email == "" || address == "" || phone == "" || date == "" || time == "" || isEmail(email)) {
             swal({
-                title: "Please Fillup All Data.",
+                title: "Please Fillup All Data Currectly.",
             });
+        } else {
+            Order_info.Client_info.Name = name;
+            Order_info.Client_info.Email = email;
+            Order_info.Client_info.Address = address;
+            Order_info.Client_info.Phone = phone;
+            Order_info.Client_info.ZipCode = zipCode;
+            Order_info.Seervice_info.Estimated_Starting_Price = finalStartingPrice;
+            Order_info.Seervice_info.Estimated_Ending_Price = finalEndingPrice;
+            Order_info.Seervice_info.items_list = itemsList;
+            Order_info.Seervice_info.Service_date = date;
+            Order_info.Seervice_info.Service_time = time;
+            confirm_order();
         }
     });
+
+    const confirm_order = () => {
+
+    }
 
 });
