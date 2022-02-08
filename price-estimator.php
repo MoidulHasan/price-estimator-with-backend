@@ -20,6 +20,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <!-- Swipers Styles CDN -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Sweet Alert CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     
 
     <!-- Custom CSS -->
@@ -37,14 +39,14 @@
             <h1 id="ctl00_BannerContent_BannerH1">Pricing Estimator</h1>
             <p>Click the green button to get started!</p>
             <div class="btn-group btn-group-lg btn-group p-3" role="group">
-                <a class="btn btn-default btn-success" role="button" id="launch-modal" data-bs-toggle="modal" data-bs-target="#peModal">Launch Pricing Estimator</a>
+                <a class="btn btn-default btn-success" role="button" id="launch-modal" data-bs-toggle="modal" data-bs-target="#price-calculator-modal">Launch Pricing Estimator</a>
             </div>
         </div>
     </div>
 
 
     <!-- Modal Start-->
-    <div class="modal fade" id="peModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="price-calculator-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-2" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content bg-custom text-white text-center p-0">
                 <!-- Modal Header Start -->
@@ -486,7 +488,7 @@
                                 </div>
 
                                 <div class="bg-light rounded rounded-3 m-2">
-                                    <input class="form-control" id="client-booking-date" name="client-booking-date" value=""  type="date">
+                                    <input class="form-control" id="client-booking-date" name="client-booking-date" value=""  type="date" min="<?php echo date("Y-m-d"); ?>">
                                 </div>
                                 
                             </div>
@@ -500,7 +502,7 @@
                                 </div>
 
                                 <div class="bg-light rounded rounded-3 m-2 form-group">
-                                    <select class="form-control" id="client-time">
+                                    <select class="form-control" disabled id="client-time">
                                         <option value="">-- Select Time --</option>
                                         <option value="08:00">08:00 AM - 10:00 AM</option>
                                         <option value="10:00">10:00 AM - 12:00 PM</option>

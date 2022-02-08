@@ -104,7 +104,9 @@ $(document).ready(function() {
         Order_info.Client_info.Name = $("#name-input").val();
         Order_info.Client_info.Email = $("#email-input").val();
         if (Order_info.Client_info.Name == "" || Order_info.Client_info.Email == "") {
-            alert("Please Enter Your Name and Email Address.")
+            swal({
+                title: "Please Enter Your Name and Email Address.",
+            });
         } else {
             getPricingData(zipCode);
             if (servicetype == "items") {
@@ -155,7 +157,6 @@ $(document).ready(function() {
     $('body').on('click', '#full-truck-plus, #full-truck-minus, #half-truck-plus, #half-truck-minus', function(e) {
         e.preventDefault();
         var thisAction = $(this).data('action');
-        // alert(thisAction)
         var aamount = 0;
 
         switch (thisAction) {
@@ -177,7 +178,13 @@ $(document).ready(function() {
 
 
         // Show large volume modal if size too large
-        if (truck_total + aamount > 6) { $('#large-volume-dialog').modal('show'); return; }
+        if (truck_total + aamount > 6) {
+            swal({
+                title: "Custom Quote",
+                text: "It appears that your job is fairly large and you will most likely benefit from a custom quote. Please call us to discuss your job."
+            });
+            return;
+        }
         if (truck_total + aamount < 0) { return; }
 
         truck_total = Number(truck_total) + Number(aamount);
@@ -190,7 +197,7 @@ $(document).ready(function() {
         // console.log(truck_total, width);
 
         // Build 'My Items' dropdown item
-        dropDownListItem +=
+        dropDownListItem =
             `<div id="pickup-truck" class="p-2 border-danger border-bottom-3 text-start">
                 <a href="#" class="bg-light p-2 m-0 text-decoration-none text-start border-1 border-danger border-bottom">
                     <span class="count">${truck_total}</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span>
@@ -322,7 +329,7 @@ $(document).ready(function() {
             </div>`;
 
         //Update items in 'My Items' dropdown
-        $("#dropdown-items").html(dropDownListItemTruck);
+        $(".dropdown-items").html(dropDownListItemTruck);
     }
 
     $(".btn-reset-truck").click(function() {
@@ -345,6 +352,26 @@ $(document).ready(function() {
         // }
     });
 
-    $("final-booking")
+    $("#client-booking-date").change(function() {
+        if ($("#client-booking-date").val() != "") {
+            $('#client-time').prop('disabled', false);
+        } else {
+            $('#client-time').prop('disabled', true);
+        }
+    });
+
+    $("#final-booking").click(function() {
+        var name = $("#client-name").val();
+        var email = $("#client-name").val();
+        var address = $("#client-address").val();
+        var phone = $("#client-phone").val();
+        var date = $("#client-booking-date").val();
+        var time = $("#client-time").val();
+        if (name == "" || email == "" || address == "" || phone == "" || date == "" || time == "") {
+            swal({
+                title: "Please Fillup All Data.",
+            });
+        }
+    });
 
 });
