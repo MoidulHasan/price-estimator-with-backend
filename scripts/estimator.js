@@ -10,7 +10,7 @@ let currentPage = 1,
     finalStartingPrice = 0,
     finalEndingPrice = 0,
     finalDiscount = 0,
-    dropDownListItemTruckTruck = "",
+    dropDownListItem = "",
     dropDownItems = "";
 
 let Order_info = {
@@ -18,7 +18,8 @@ let Order_info = {
         Name: "",
         Email: "",
         Address: "",
-        Phone: ""
+        Phone: "",
+        ZipCode: ""
     },
     Seervice_info: {
         Service_name: "",
@@ -45,15 +46,19 @@ $(document).ready(function() {
     $("#zip-submit").click(function() {
         var zipValMsg = "";
         zipCode = parseInt($("#zip-input").val());
-        // alert(zipCode);
-        zipRegex = /^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]|[0-9]{5}$/;
-        $('#zip-input').val($('#zip-input').val().replace(/([a-z]\d[a-z])(\d[a-z]\d)/gi, '$1 $2'));
-        validZip = zipRegex.test($('#zip-input').val());
-        if ($('#zip-input').val() == "" || !validZip) {
+        if (zipCode == "NaN") {
             zipValMsg = '<h4>Please enter a valid zip/postal code.</h4>';
         } else {
-            getZipData(zipCode);
+            zipRegex = /^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]|[0-9]{5}$/;
+            $('#zip-input').val($('#zip-input').val().replace(/([a-z]\d[a-z])(\d[a-z]\d)/gi, '$1 $2'));
+            validZip = zipRegex.test($('#zip-input').val());
+            if ($('#zip-input').val() == "" || !validZip) {
+                zipValMsg = '<h4>Please enter a valid zip/postal code.</h4>';
+            } else {
+                getZipData(zipCode);
+            }
         }
+        $("#zip-validation-msg").html(zipValMsg);
     });
 
     // Valide zipcode and get data
@@ -66,8 +71,8 @@ $(document).ready(function() {
             if (data.status !== "not found") {
                 zipValMsg = `<h1>Good news!<br> We've got you covered.</h1><p>Based on your location, you will be working with</p><h3>${data.location}</h3>`;
                 // get and set location data to modal header
-                const location = `<i class="fa fa-map-marker">${data.location}(${zipCode})`;
-                $("#p2-location").html(location);
+                const location = `<i class="far fa-map-marker">${data.location}(${zipCode})`;
+                $(".location").html(location);
                 setTimeout(function() {
                     goToPage(2);
                 }, 2000);
@@ -120,7 +125,9 @@ $(document).ready(function() {
     // Action on previous page button click
     $("#prev-page").click(function() {
         if (currentPage > 1) {
-            if (servicetype === "pickup" && currentPage == 5) {
+            if (currentPage == 3) {
+                $('#empty-items-dialog').modal('show');
+            } else if (servicetype === "pickup" && currentPage == 5) {
                 goToPage(currentPage - 1);
             } else if (servicetype === "items" && currentPage == 6) {
                 goToPage(currentPage - 1);
@@ -180,10 +187,10 @@ $(document).ready(function() {
         // Set to fixed decimal place for consistent calculations
         truck_total = parseFloat(truck_total.toFixed(1));
         var width = parseInt((truck_total / 6) * 100);
-        console.log(truck_total, width);
+        // console.log(truck_total, width);
 
         // Build 'My Items' dropdown item
-        dropDownListItemTruck =
+        dropDownListItem +=
             `<div id="pickup-truck" class="p-2 border-danger border-bottom-3 text-start">
                 <a href="#" class="bg-light p-2 m-0 text-decoration-none text-start border-1 border-danger border-bottom">
                     <span class="count">${truck_total}</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span>
@@ -191,7 +198,7 @@ $(document).ready(function() {
             </div>`;
 
         //Update items in 'My Items' dropdown
-        $("#dropdown-items").html(dropDownListItemTruck);
+        $(".dropdown-items").html(dropDownListItem);
 
         // Enable/disable next step button
         var nextStepDisabled = truck_total <= 0 ? true : false;
@@ -239,6 +246,7 @@ $(document).ready(function() {
             var offerStr = lbod > 0 ? '<span class="jk-black d-none-xs"> (-$' + lbod + ')</span>' : '';
             // console.log(priceStr)
             $('.estemeted-rate').html(priceStr);
+            $('.discount').html(offerStr);
             finalStartingPrice = startingPrice;
             finalEndingPrice = endingPrice;
             finalDiscount = lbod;
@@ -327,12 +335,16 @@ $(document).ready(function() {
 
 
     $(".btn-book-now").click(function() {
-
+        $("#client-name").val(Order_info.Client_info.Name);
+        $("#client-email").val(Order_info.Client_info.Email);
+        goToPage(6);
         // if (servicetype = "pickup") {
 
         // } else if (servicetype = "items") {
 
         // }
     });
+
+    $("final-booking")
 
 });

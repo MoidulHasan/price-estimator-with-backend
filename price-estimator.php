@@ -102,7 +102,7 @@
                         <div class="row header-block">
                             <div class="col-md-12 p-0 m-0">
                                 <h2 class="p-0 m-0">By Items or Pickup Truck Loads?</h2>
-                                <h4 id="p2-location"></h4>
+                                <h4 class="location"></h4>
                             </div>
                         </div>
 
@@ -211,17 +211,18 @@
                                 </p>
                             </div>
                             <div class="col-8 text-start p-0 m-0">
-                                <h5 class="p-0 m-0">
-                                    <i class="fa fa-map-marker"></i>
-                                    <span id="location">Junk King San Antonio Northwest</span> (
-                                    <span id="zip-code">78238</span>)
+                                <h5 class="p-0 m-0 location">
                                 </h5>
                             </div>
                             <div class="col-4 p-0 m-0 text-end">
-                                <button class="btn text-light border-0" data-toggle="dropdown" aria-expanded="false" type="button">
-                                    My Items&nbsp;
-                                    <i class="fa fa-chevron-circle-down" style="margin-left: 8"></i>
-                                </button>
+                                <div class="dropdown">
+                                    <button id="added-items-list" aria-haspopup="true" class="btn text-light border-0 added-items-list" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                                        My Items&nbsp;
+                                        <i class="fa fa-chevron-circle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-items" role="menu" aria-labelledby="added-items-list">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row p-0 m-0">
@@ -301,7 +302,7 @@
                                 <p class="small m-0">* excludes jobs $99 and under</p>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now" id="btn-book-jk-truck" type="button" onclick="sendEvent('#peModal',7, &quot;forward&quot;)">
+                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now" id="btn-book-jk-truck" type="button">
                                     Pick These Up!
                                 </button>
                             </div>
@@ -326,19 +327,16 @@
                                 </p>
                             </div>
                             <div class="col-8 text-start p-0 m-0">
-                                <h5 class="p-0 m-0">
-                                    <i class="far fa-map-marker"></i>
-                                    <span id="location">Junk King San Antonio Northwest</span> (
-                                    <span id="zip-code">78238</span>)
+                                <h5 class="p-0 m-0 location">
                                 </h5>
                             </div>
                             <div class="col-4 p-0 m-0 text-end">
                                 <div class="dropdown">
-                                    <button id="added-items-list" aria-haspopup="true" class="btn text-light border-0" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                                    <button id="added-items-list" aria-haspopup="true" class="btn text-light border-0 added-items-list" data-bs-toggle="dropdown" aria-expanded="false" type="button">
                                         My Items&nbsp;
                                         <i class="fa fa-chevron-circle-down"></i>
                                     </button>
-                                    <div id="dropdown-items" class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="added-items-list">
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-items" role="menu" aria-labelledby="added-items-list">
                                         
                                     </div>
                                 </div>
@@ -447,17 +445,19 @@
                                 <p class="small m-0">* excludes jobs $99 and under</p>
                             </div>
                             <div class="col-8 text-start p-0 m-0">
-                                <h5 class="p-0 m-0">
-                                    <i class="far fa-map-marker"></i>
-                                    <span id="location">Junk King San Antonio Northwest</span> (
-                                    <span id="zip-code">78238</span>)
+                                <h5 class="p-0 m-0 location">
                                 </h5>
                             </div>
                             <div class="col-4 p-0 m-0 text-end">
-                                <button class="btn text-light border-0" data-toggle="dropdown" aria-expanded="false" type="button">
-                                    My Items&nbsp;
-                                    <i class="fa fa-chevron-circle-down" style="margin-left: 8"></i>
-                                </button>
+                            <div class="dropdown">
+                                    <button id="added-items-list" aria-haspopup="true" class="btn text-light border-0 added-items-list" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                                        My Items&nbsp;
+                                        <i class="fa fa-chevron-circle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-items" role="menu" aria-labelledby="added-items-list">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -466,8 +466,8 @@
                                 <h4 class="text-dark">
                                     <span class="hidden-xs">Your&nbsp;<span>
                                     <span>Estimate:&nbsp;</span>
-                                    <span class="text-danger">$188-$218</span>
-                                    <span class="text-dark"> (-$20)</span>
+                                    <span class="text-danger estemeted-rate">$0</span>
+                                    <span class="text-dark discount"> (-$20)</span>
                                 </h4>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                         <div class="row pt-3">
                             <div class="col-2"></div>
                             <div class="col-8 p-0 m-0 text-center">
-                                <button class="btn button-custom btn-block m-0 border-0 text-light fw-bold px-5" type="button" >Book It!</button>
+                                <button id="final-booking" class="btn button-custom btn-block m-0 border-0 text-light fw-bold px-5" type="button" >Book It!</button>
                             </div>
                             <div class="col-2"></div>
                             <div class="col-12 mt-2">
@@ -564,8 +564,7 @@
                                         <li id="pickup-trucks"><a href="#" class="dd-item" data-slide="1" data-screen="4"><span class="count">1.0</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span></a></li>
                                     </div>
                                 <h5 class="text-danger">Location</h5>
-                                <p class="jk-location">
-                                    <i class="far fa-map-marker"></i> Junk King Miami South
+                                <p class="location">
                                 </p>
                                 <h5>
                                     <span class="fw-bold">Estimate:&nbsp;</span><span class="final-price-range"><span class="text-danger">$188-$218</span><span class="text-danger"> (-$20)</span></span>
@@ -608,6 +607,22 @@
         </div>
     </div>
     <!-- large-volume-dialog modal end -->
+
+    <!-- Leaving Modal Start -->
+    <!-- <div class="modal fade dialog" role="dialog" tabindex="-1" id="empty-items-dialog" data-this-step="5" data-prev-step="3" aria-hidden="false" style="display: block;">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h3 class="p-0 m-0">Caution</h3>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h5>Leaving this page will clear your list of items<br></h5>
+                    </div>
+                    <div class="modal-footer text-center pb-4"><button class="btn btn-success leave-page mr-2" type="button">Leave Page</button><button class="btn btn-success ml-2" type="button" data-dismiss="modal">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+    Leaving Modal End -->
 
     <!-- JQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
