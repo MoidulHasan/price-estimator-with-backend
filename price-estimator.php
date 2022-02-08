@@ -20,9 +20,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <!-- Swipers Styles CDN -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./styles/style.css" />
 
+
+        
     <title>Price Estimators final</title>
 </head>
 
@@ -272,11 +276,11 @@
                             <div class="col-9">
                                 <h3 class="text-start">
                                     <span class="hidden-sm">Your </span>Estimate:
-                                    <span class="text-danger" id="estemeted-rate">$0</span>
+                                    <span class="text-danger estemeted-rate" id="">$0</span>
                                 </h3>
                             </div>
                             <div class="col-3">
-                                <button class="btn btn-danger btn-sm btn-reset btn-reset-tl" type="button" onclick="resetTruckloadsView();">
+                                <button class="btn btn-danger btn-sm btn-reset" type="button">
                                     <span>Clear&nbsp;</span><span class="hidden-xs">Items&nbsp;</span><i
                                         class="fa fa-rotate-left jk-red"></i>
                                 </button>
@@ -284,7 +288,7 @@
                         </div>
 
                         <div id="item_list" class="col-12 row p-0 m-0 bg-custom-truck inner-shadow p-1 text-dark">
-
+                            <h6 id="item-key" class="col-6"><span id="item-count"></span> <span id="item-name"></span></h6>
                         </div>
 
                         <div class="row pt-3">
@@ -297,7 +301,7 @@
                                 <p class="small m-0">* excludes jobs $99 and under</p>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold" id="btn-book-jk-truck" type="button" onclick="sendEvent('#peModal',7, &quot;forward&quot;)">
+                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now" id="btn-book-jk-truck" type="button" onclick="sendEvent('#peModal',7, &quot;forward&quot;)">
                                     Pick These Up!
                                 </button>
                             </div>
@@ -323,18 +327,24 @@
                             </div>
                             <div class="col-8 text-start p-0 m-0">
                                 <h5 class="p-0 m-0">
-                                    <i class="fa fa-map-marker"></i>
+                                    <i class="far fa-map-marker"></i>
                                     <span id="location">Junk King San Antonio Northwest</span> (
                                     <span id="zip-code">78238</span>)
                                 </h5>
                             </div>
                             <div class="col-4 p-0 m-0 text-end">
-                                <button class="btn text-light border-0" data-toggle="dropdown" aria-expanded="false" type="button">
-                                    My Items&nbsp;
-                                    <i class="fa fa-chevron-circle-down" style="margin-left: 8"></i>
-                                </button>
+                                <div class="dropdown">
+                                    <button id="added-items-list" aria-haspopup="true" class="btn text-light border-0" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                                        My Items&nbsp;
+                                        <i class="fa fa-chevron-circle-down"></i>
+                                    </button>
+                                    <div id="dropdown-items" class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="added-items-list">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="row bg-light text-dark">
                             <div class="col-12 fw-bold pt-2">
                                 <h6>
@@ -346,14 +356,14 @@
                                 <div class="col-6">
                                     <img src="<?php echo $path; ?>/images/pickup-truck-full.png" />
                                     <div>
-                                        <span id="full-truck-count">2</span><span> Full Pickup Truck Load(s)</span>
+                                        <span id="full-truck-count">0</span><span> Full Pickup Truck Load(s)</span>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button id="full-truck-minus" class="btn border-0">
+                                        <button data-action="remove-full" id="full-truck-minus" class="btn border-0">
                                             <i class="fal fa-minus"></i>
                                         </button>
 
-                                        <button id="full-truck-plus" class="btn border-0">
+                                        <button data-action="add-full" id="full-truck-plus" class="btn border-0">
                                             <i class="fas fa-plus-square text-danger"></i>
                                         </button>
                                     </div>
@@ -361,14 +371,14 @@
                                 <div class="col-6">
                                     <img src="<?php echo $path; ?>/images/pickup-truck-half.png" />
                                     <div>
-                                        <span id="half-truck-count">2</span><span> Half Pickup Truck Load(s)</span>
+                                        <span id="half-truck-count">0</span><span> Half Pickup Truck Load(s)</span>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <button data-action="add-half" id="half-truck-minus" class="btn border-0">
+                                        <button data-action="remove-half" id="half-truck-minus" class="btn border-0">
                                             <i class="fal fa-minus"></i>
                                         </button>
 
-                                        <button data-action="add-full" id="half-truck-plus" class="btn border-0">
+                                        <button data-action="add-half" id="half-truck-plus" class="btn border-0">
                                             <i class="fas fa-plus-square text-danger"></i>
                                         </button>
                                     </div>
@@ -396,11 +406,11 @@
                                 <div class="col-9">
                                     <h3 class="text-start">
                                         <span class="hidden-sm">Your </span>Estimate:
-                                        <span class="text-danger" id="estemeted-rate">$0</span>
+                                        <span class="text-danger estemeted-rate" id="">$0</span>
                                     </h3>
                                 </div>
                                 <div class="col-3">
-                                    <button class="btn btn-danger btn-sm btn-reset btn-reset-tl" type="button" onclick="resetTruckloadsView();">
+                                    <button class="btn btn-danger btn-sm btn-reset-truck" type="button">
                                         <span>Clear&nbsp;</span><span class="hidden-xs">Items&nbsp;</span><i
                                             class="fa fa-rotate-left jk-red"></i>
                                     </button>
@@ -418,7 +428,7 @@
                                 <p class="small m-0">* excludes jobs $99 and under</p>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold" id="btn-book-jk-truck" type="button" onclick="sendEvent('#peModal',7, &quot;forward&quot;)">
+                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now disabled" id="btn-book-truck" type="button">
                                     Book It!
                                 </button>
                             </div>
@@ -427,23 +437,187 @@
                 </div>
                 <!-- Page 5 end Add by Truck load -->
 
+
+                <!-- Page 6 Start Booking Page  -->
+                <div id="p-6" class="modal-body step step-6 d-none">
+                    <div class="container-fluid text-light px-3 py-0 text-start">
+                        <div class="row p-0 m-0">
+                            <div class="col-12 p-0 m-0">
+                                <h2 class="p-0 m-0">Book Now &amp;&nbsp;<span class="jk-gold">Save $<span class="online-discount-amount jk-gold">20</span>!</span> <span>*</span></h2>
+                                <p class="small m-0">* excludes jobs $99 and under</p>
+                            </div>
+                            <div class="col-8 text-start p-0 m-0">
+                                <h5 class="p-0 m-0">
+                                    <i class="far fa-map-marker"></i>
+                                    <span id="location">Junk King San Antonio Northwest</span> (
+                                    <span id="zip-code">78238</span>)
+                                </h5>
+                            </div>
+                            <div class="col-4 p-0 m-0 text-end">
+                                <button class="btn text-light border-0" data-toggle="dropdown" aria-expanded="false" type="button">
+                                    My Items&nbsp;
+                                    <i class="fa fa-chevron-circle-down" style="margin-left: 8"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row bg-light estimate-bar" style="margin: 0px -30px;">
+                            <div class="col-12 text-center p-2 fw-bold">
+                                <h4 class="text-dark">
+                                    <span class="hidden-xs">Your&nbsp;<span>
+                                    <span>Estimate:&nbsp;</span>
+                                    <span class="text-danger">$188-$218</span>
+                                    <span class="text-dark"> (-$20)</span>
+                                </h4>
+                            </div>
+                        </div>
+                        
+                        <div class="row text-dark rounded rounded-3 py-3 text-start p-1">
+                            <div class="col-12 p-0 m-0 mb-3">
+                                <h3 class="text-light text-center fw-bold p-0 m-0">Let's Get the Details:</h3>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="bg-light rounded rounded-3 m-2 ">
+                                    <input class="form-control" id="client-name" name="client-name" value="" placeholder="First Name & Last Name" type="text">
+                                </div>
+
+                                <div class="bg-light rounded rounded-3 m-2">
+                                    <input class="form-control" id="client-address" name="client-address" value="" placeholder="Address" type="text">
+                                </div>
+
+                                <div class="bg-light rounded rounded-3 m-2">
+                                    <input class="form-control" id="client-booking-date" name="client-booking-date" value=""  type="date">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-light rounded rounded-3 m-2">
+                                    <input class="form-control" id="client-email" name="client-email" value="" placeholder="Email Address" type="email">
+                                </div>
+
+                                <div class="bg-light rounded rounded-3 m-2">
+                                    <input class="form-control" id="client-phone" name="client-phone" value="" placeholder="Phone" type="mobile">
+                                </div>
+
+                                <div class="bg-light rounded rounded-3 m-2 form-group">
+                                    <select class="form-control" id="client-time">
+                                        <option value="">-- Select Time --</option>
+                                        <option value="08:00">08:00 AM - 10:00 AM</option>
+                                        <option value="10:00">10:00 AM - 12:00 PM</option>
+                                        <option value="12:00">12:00 PM - 02:00 PM</option>
+                                        <option value="14:00">02:00 PM - 04:00 PM</option>
+                                        <option value="16:00">04:00 PM - 06:00 PM</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col-2"></div>
+                            <div class="col-8 p-0 m-0 text-center">
+                                <button class="btn button-custom btn-block m-0 border-0 text-light fw-bold px-5" type="button" >Book It!</button>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-12 mt-2">
+                                <p>** This pricing estimator provides an online estimate. The final price will be determined onsite by our staff. The price for heavy material, such as dirt, gravel, roofing material, and concrete, cannot be estimated with this tool as this material is charged by the bed load.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page 6 end Booking Page -->
+
+
+                <!-- Page 7 start Order Confirmation Page -->
+                <div id="p-7" class="modal-body step step-6 d-none">
+                    <div class="container-fluid text-light p-3 text-center">
+                        <div class="row p-0 m-0 py-3">
+                            <div class="col-12 p-0 m-0">
+                                <h1 class="p-0 m-0 fw-bold ">
+                                    Thanks!
+                                </h1>
+                            </div>
+                            <div class="col-12 p-0 m-0">
+                                <h3 class="pt-3 m-0 ">
+                                    Your request has been booked!
+                                </h3>
+                            </div>
+                            <div class="col-12 p-0 m-0">
+                                <p class="pt-3 m-0 ">
+                                    You will receive a confirmation email with all the details about this service.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="row bg-light text-dark rounded rounded-3 py-3 text-start p-1">
+                            <div class="col-md-6">
+                                <h5 class="text-danger">Confirmation #</h5>
+                                <div id="order-confirmation-number">JK2223319</div>
+                                <h5 class="text-danger">Your Info</h5>
+                                <div id="order-customer-info">
+                                    <div>fdf fdgfg</div><div>dfs@df.asdf</div><div>trghr</div><div>33157</div><div>+148-446-08097</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-danger">Your Items</h5>
+                                    <div id="order-items-list">
+                                        <li id="pickup-trucks"><a href="#" class="dd-item" data-slide="1" data-screen="4"><span class="count">1.0</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span></a></li>
+                                    </div>
+                                <h5 class="text-danger">Location</h5>
+                                <p class="jk-location">
+                                    <i class="far fa-map-marker"></i> Junk King Miami South
+                                </p>
+                                <h5>
+                                    <span class="fw-bold">Estimate:&nbsp;</span><span class="final-price-range"><span class="text-danger">$188-$218</span><span class="text-danger"> (-$20)</span></span>
+                                </h5>
+                                <p>*Final cost with your $20 discount will be reflected on your receipt.</p>
+                            </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col-2"></div>
+                            <div class="col-8 p-0 m-0 text-center">
+                                <button class="btn button-custom btn-block m-0 form-control border-0 text-light fw-bold" type="button" data-dismiss="modal">Close Window</button>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page 7 end Order Confirmation Page -->
+
                 <!-- Modal Content End -->
 
 
             </div>
         </div>
     </div>
-    <!-- Modal End -->
-
-    <!-- Bootstrap Scripts -->
-    <script src=" https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js " integrity=" sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB " crossorigin=" anonymous "></script>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js " integrity=" sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13 " crossorigin=" anonymous "></script>
-
-    <!-- Swiper JS -->
-    <script src=" https://unpkg.com/swiper/swiper-bundle.min.js "></script>
+    <!-- Modal End --> 
+    <!-- large-volume-dialog modal start -->
+    <div class="modal fade dialog" role="dialog" tabindex="-1" id="large-volume-dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3 class="p-0 m-0">Custom Quote</h3>
+                </div>
+                <div class="modal-body text-center">
+                    <p>It appears that your job is fairly large and you will most likely benefit from a custom quote.&nbsp; Please call us to discuss your job.<br></p>
+                    <p class="modal-title jk-phone-logo">&nbsp;1-888-888-Junk</p>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    <!-- large-volume-dialog modal end -->
 
     <!-- JQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Swiper JS -->
+    <script src=" https://unpkg.com/swiper/swiper-bundle.min.js "></script>
+
+    
 
 
     <!-- Initialize Swiper -->

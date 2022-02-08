@@ -127,6 +127,11 @@
             transform: translate3d(0px, 0px, 0px);
         }
         
+        #item_list {
+            height: 210px;
+            overflow: scroll;
+        }
+        
         .lslide {
             -webkit-text-size-adjust: 100%;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -258,3 +263,66 @@
             z-index: 0;
             top: 36%;
         }
+        /* .drop-down {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            line-height: 1.42857143;
+            -webkit-font-smoothing: antialiased;
+            color: #333;
+            font-family: "Catamaran", sans-serif;
+            font-size: 0.8em;
+            box-sizing: border-box;
+            position: relative;
+            touch-action: manipulation;
+            padding-left: 15px;
+            text-align: right;
+            padding-right: 0;
+        }
+        
+        .drop-down-menu-items {
+            top: 100%;
+            z-index: 1000;
+            float: left;
+            min-width: 160px;
+            margin: 2px 0 0;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            border-radius: 4px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            left: auto;
+            border: 0;
+            display: block;
+            touch-action: manipulation;
+            color: #ffffff;
+            background: #f9f9f9 !important;
+            border-bottom: 4px solid #ed1c24 !important;
+            padding: 10px;
+            position: absolute;
+            margin-top: 0;
+            right: 0 !important;
+            max-width: 300px;
+        }
+        
+        .dd-item {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-font-smoothing: antialiased;
+            font-family: "Catamaran", sans-serif;
+            font-size: 14px;
+            list-style: none;
+            box-sizing: border-box;
+            background-color: transparent;
+            text-decoration: none;
+            outline: none;
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            white-space: nowrap;
+            touch-action: manipulation;
+            color: #ffffff;
+        } */
