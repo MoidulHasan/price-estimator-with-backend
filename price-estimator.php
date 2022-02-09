@@ -554,22 +554,21 @@
                         <div class="row bg-light text-dark rounded rounded-3 py-3 text-start p-1">
                             <div class="col-md-6">
                                 <h5 class="text-danger">Confirmation #</h5>
-                                <div id="order-confirmation-number">JK2223319</div>
+                                <div id="order-number"></div>
                                 <h5 class="text-danger">Your Info</h5>
                                 <div id="order-customer-info">
-                                    <div>fdf fdgfg</div><div>dfs@df.asdf</div><div>trghr</div><div>33157</div><div>+148-446-08097</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-danger">Your Items</h5>
-                                    <div id="order-items-list">
-                                        <li id="pickup-trucks"><a href="#" class="dd-item" data-slide="1" data-screen="4"><span class="count">1.0</span>&nbsp;<span class="item-name">Pickup Truck Load(s)</span></a></li>
-                                    </div>
+                                    <ul id="order-items-list">
+                                    </ul>
                                 <h5 class="text-danger">Location</h5>
                                 <p class="location">
                                 </p>
                                 <h5>
-                                    <span class="fw-bold">Estimate:&nbsp;</span><span class="final-price-range"><span class="text-danger">$188-$218</span><span class="text-danger"> (-$20)</span></span>
+                                    <span class="fw-bold">Estimate:&nbsp;</span><span class="final-price">
+                                    </span>
                                 </h5>
                                 <p>*Final cost with your $20 discount will be reflected on your receipt.</p>
                             </div>
@@ -578,13 +577,15 @@
                         <div class="row pt-3">
                             <div class="col-2"></div>
                             <div class="col-8 p-0 m-0 text-center">
-                                <button class="btn button-custom btn-block m-0 form-control border-0 text-light fw-bold" type="button" data-dismiss="modal">Close Window</button>
+                                <button id="close-modal" class="btn button-custom btn-block m-0 form-control border-0 text-light fw-bold" type="button" data-bs-dismiss="modal">Close Window</button>
                             </div>
                             <div class="col-2"></div>
                         </div>
                     </div>
                 </div>
                 <!-- Page 7 end Order Confirmation Page -->
+
+
 
                 <!-- Modal Content End -->
 
@@ -593,38 +594,8 @@
         </div>
     </div>
     <!-- Modal End --> 
-    <!-- large-volume-dialog modal start -->
-    <div class="modal fade dialog" role="dialog" tabindex="-1" id="large-volume-dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h3 class="p-0 m-0">Custom Quote</h3>
-                </div>
-                <div class="modal-body text-center">
-                    <p>It appears that your job is fairly large and you will most likely benefit from a custom quote.&nbsp; Please call us to discuss your job.<br></p>
-                    <p class="modal-title jk-phone-logo">&nbsp;1-888-888-Junk</p>
-                </div>
-                <div class="modal-footer"></div>
-            </div>
-        </div>
-    </div>
-    <!-- large-volume-dialog modal end -->
 
-    <!-- Leaving Modal Start -->
-    <!-- <div class="modal fade dialog" role="dialog" tabindex="-1" id="empty-items-dialog" data-this-step="5" data-prev-step="3" aria-hidden="false" style="display: block;">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h3 class="p-0 m-0">Caution</h3>
-                    </div>
-                    <div class="modal-body text-center">
-                        <h5>Leaving this page will clear your list of items<br></h5>
-                    </div>
-                    <div class="modal-footer text-center pb-4"><button class="btn btn-success leave-page mr-2" type="button">Leave Page</button><button class="btn btn-success ml-2" type="button" data-dismiss="modal">Cancel</button></div>
-                </div>
-            </div>
-        </div>
-    Leaving Modal End -->
+
 
     <!-- JQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

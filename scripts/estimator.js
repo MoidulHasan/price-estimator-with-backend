@@ -260,6 +260,7 @@ $(document).ready(function() {
             finalStartingPrice = startingPrice;
             finalEndingPrice = endingPrice;
             finalDiscount = lbod;
+            $('.final-price').html(priceStr + offerStr);
         }
     } // GetPricePickUP()
 
@@ -275,7 +276,6 @@ $(document).ready(function() {
 
     function resetPricingViews() {
 
-        $('#book-type').val('');
         resetAddItemsView();
         resetTruckloadsView();
 
@@ -329,6 +329,7 @@ $(document).ready(function() {
         $('#full-truck-count').html(full_truck);
         $('#half-truck-count').html(half_truck);
         $('.estemeted-rate').html("$0");
+        $('.final-price').html("");
 
         // Build 'My Items' dropdown item
         dropDownListItem =
@@ -370,12 +371,12 @@ $(document).ready(function() {
 
     $("#final-booking").click(function() {
         var name = $("#client-name").val();
-        var email = $("#client-name").val();
+        var email = $("#client-email").val();
         var address = $("#client-address").val();
         var phone = $("#client-phone").val();
         var date = $("#client-booking-date").val();
         var time = $("#client-time").val();
-        if (name == "" || email == "" || address == "" || phone == "" || date == "" || time == "" || isEmail(email)) {
+        if (name == "" || email == "" || address == "" || phone == "" || date == "" || time == "" || !isEmail(email)) {
             swal({
                 title: "Please Fillup All Data Currectly.",
             });
@@ -395,7 +396,52 @@ $(document).ready(function() {
     });
 
     const confirm_order = () => {
-
+        const orderURL = "http://localhost/Upwork/pricing-estimator-final/system/confirm-order.php"
+        $.ajax({
+            type: "POST",
+            url: orderURL,
+            data: Order_info,
+            dataType: "json",
+            success: function(response) {
+                if (response.status == 200) {
+                    const customer_info = `
+                        <div>${Order_info.Client_info.Name}</div>
+                        <div>${Order_info.Client_info.Email}</div>
+                        <div>${Order_info.Client_info.Phone}</div>
+                        <div>${Order_info.Client_info.Address}</div>
+                    `;
+                    $("#order-number").html(response.order_no);
+                    $("#order-customer-info").html(customer_info);
+                    createItemList();
+                    swal("Thank You!", "your Order has been received!", "success").then(
+                        goToPage(7)
+                    );
+                } else {
+                    swal("Sorry Something Went Wrong!", "Please Contact With Us", "failed")
+                }
+            }
+        });
     }
 
+    const createItemList = () => {
+        const allItems = Order_info.Seervice_info.items_list;
+        const items_keys = Object.keys(allItems);
+        const list = document.getElementById('order-items-list');
+        items_keys.forEach((key, index) => {
+            // console.log(key, " ", allItems[key]);
+            // create an item for each one
+            var listItem = document.createElement('li');
+
+            // Add the item text
+            listItem.innerHTML = `${key} - ${allItems[key]}`;
+            // Add item to the list
+            list.appendChild(listItem);
+        });
+    }
+
+    $("close-modal").click(
+        function() {
+            location.reload();
+        }
+    );
 });
