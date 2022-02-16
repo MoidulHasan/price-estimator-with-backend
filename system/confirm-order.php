@@ -6,12 +6,12 @@
 
     echo json_encode($res);
 
-    // the message
-    $msg = "First line of text\nSecond line of text";
+    // // the message
+    // $msg = "First line of text\nSecond line of text";
 
-    // use wordwrap() if lines are longer than 70 characters
-    $msg = wordwrap($msg,70);
+    // // use wordwrap() if lines are longer than 70 characters
+    // $msg = wordwrap($msg,70);
 
-    // send email
-    mail("antu.khan.988@gmail.com","Test Email From php code",$msg);
+    // // send email
+    // mail("antu.khan.988@gmail.com","Test Email From php code",$msg);
 ?>

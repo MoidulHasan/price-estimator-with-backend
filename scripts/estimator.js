@@ -1,8 +1,12 @@
 const siteName = "http://localhost/Upwork/pricing-estimator-final";
 let currentPage = 1,
+    currentCategorieOnShow = "Couches_and_Chairs",
     servicetype = "",
     price,
     zipCode,
+    totalVolume = 0,
+    totalItemCount = 0,
+    Offset,
     full_truck = 0,
     half_truck = 0,
     truck_total = 0,
@@ -109,7 +113,7 @@ $(document).ready(function() {
                 title: "Please Enter Your Name and Valid Email Address.",
             });
         } else {
-            getPricingData(zipCode);
+            getPricingData(zipCode, showItemsData);
             if (servicetype == "items") {
                 goToPage(4);
             } else if (servicetype == "pickup") {
@@ -117,6 +121,81 @@ $(document).ready(function() {
             }
         }
     });
+
+    // Show Items data related to categories
+    const showItemsData = () => {
+        console.log(price);
+        const itemsData = price.Items_Price;
+        itemsData.forEach(showSingleCategoriesItem);
+    };
+
+    // create item div for single categories
+    const showSingleCategoriesItem = (items) => {
+        // console.log(items.item);
+        let categoriesItemList = `<div id="${items.item}" class="row text-start d-none">`;
+
+        items.items.forEach((item) => {
+            categoriesItemList += `
+            <h6 id="${item.item}" class="col-6 px-3">
+                <span class="border-bottom border-dark d-flex justify-content-between align-items-center ">
+                    <span>
+                        <span class="text-danger item-count item-count-${item.item}">0</span> <span>${item.name}</span>
+                    </span>
+                    <span>
+                        <button data-name="${item.item}" data-full-name="${item.name}" data-volume="${item.volume}" data-offset="${item.offset}" class="btn border-0 remove-item">
+                            <i class="fal fa-minus"></i>
+                        </button>
+
+                        <button data-name="${item.item}" data-full-name="${item.name}" data-volume="${item.volume}" data-offset="${item.offset}" class="btn border-0 add-item-to-card">
+                            <i class="fas fa-plus-square text-danger"></i>
+                        </button>
+                    </span>
+                </span>
+            </h6>
+            `;
+        });
+        categoriesItemList += `</div>`;
+
+        // console.log(categoriesItemList);
+        $("#item_list").append(categoriesItemList);
+
+        // str2 += '<li class="item" data-toggle="tooltip" title="' + val1.name + '"><span class="item-count">0</span><span class="item-name">' + itemName + '</span><div role = "group"
+        // class = "btn-group item-data"
+        // data - slide = "' + slideNum + '"
+        // data - volume = "' + val1.volume + '"
+        // data - sioffset = "' + val1.offset + '"
+        // data - category = "' + val.categoryName + '"
+        // data - parent = "' + val.categoryName + '"
+        // data - item - name = "' + val1.name + '"
+        // data - item - totalcount = "' + itemTotalCount + '"
+        // data - item - totalvolume = "' + itemTotalVolume + '" > < a class = "btn btn-xs"
+        // role = "button"
+        // data - action = "remove-item" > < i class = "ico-btn-minus" > < /i></a > < a class = "btn btn-xs"
+        // role = "button"
+        // data - action = "add-item" > < i class = "ico-btn-plus" > < /i></a > < /div>
+
+        // <
+        // /li>';
+
+        showItems("Couches_and_Chairs");
+    };
+
+    // Action on click of catagorie name
+    $(".cat-slide").click(
+        function() {
+            const catagorie_name = $(this).attr('data-category');
+            showItems(catagorie_name);
+        }
+    );
+
+    // Show items on categorie's  name click
+    const showItems = (categorieName) => {
+        $(`#${currentCategorieOnShow}`).addClass("d-none");
+        $(`.${currentCategorieOnShow}`).removeClass("border border-2 border-dark");
+        $(`#${categorieName}`).removeClass("d-none");
+        $(`.${categorieName}`).addClass("border border-2 border-dark");
+        currentCategorieOnShow = categorieName;
+    };
 
     // Function to go to another page
     const goToPage = (nextPage) => {
@@ -129,18 +208,48 @@ $(document).ready(function() {
     $("#prev-page").click(function() {
         if (currentPage > 1) {
             if (currentPage == 3) {
-                $('#empty-items-dialog').modal('show');
+                const val = swal({
+                    title: "Caution",
+                    text: "Leaving this page will clear your list of items.",
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        }
+                    }
+                });
+                val.then(function(result) {
+                    if (result) {
+                        resetPricingViews();
+                        goToPage(currentPage - 1);
+                    } else {
+                        return;
+                    }
+                });
             } else if (servicetype === "pickup" && currentPage == 5) {
+                goToPage(currentPage - 1);
                 goToPage(currentPage - 1);
             } else if (servicetype === "items" && currentPage == 6) {
                 goToPage(currentPage - 1);
+                goToPage(currentPage - 1);
+            } else if (currentPage != 7) {
+                goToPage(currentPage - 1);
             }
-            goToPage(currentPage - 1);
         }
     });
 
     // Get pricing data from server
-    const getPricingData = (zipCode) => {
+    const getPricingData = (zipCode, callBack) => {
         const priceURL = "http://localhost/Upwork/pricing-estimator-final/system/price.php"
         $.ajax({
             type: "POST",
@@ -149,9 +258,132 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 price = response;
+                callBack();
             }
         });
     };
+
+
+    // Add item on card
+    $(document).on('click', '.add-item-to-card', function() {
+        var volume = $(this).data('volume');
+        var offset = $(this).data('offset');
+        var itemName = $(this).data('name');
+        var itemFullName = $(this).data('full-name');
+        var itemCount = $(`.item-count-${itemName}`).html();
+        itemCount = parseInt(itemCount);
+
+        Offset = offset;
+        itemCount += 1;
+        itemsList[itemFullName] = itemCount;
+        $(`.item-count-${itemName}`).html(itemCount);
+        totalVolume += volume;
+        totalItemCount += 1;
+
+        if (!$(".dropdown-items").children(`.item-name-${itemName}`).length) {
+            var item = `<div class="p-2 item-name-${itemName}">
+                <span class="border-bottom border-dark d-flex justify-content-between align-items-center ">
+                    <span class="text-danger item-count-${itemName}">${itemCount}</span>
+                    <span>${itemFullName}</span>
+                </span>
+            </div>`;
+            $(".dropdown-items").append(item);
+        }
+
+        console.log(itemFullName, totalVolume, totalItemCount, itemName, itemCount, itemsList);
+        GetPriceRange();
+    });
+
+    // remove item on card
+    $(document).on('click', '.remove-item-to-card', function() {
+        alert("clicked");
+    });
+
+    // Reset Items Card
+    $(document).on('click', '.btn-reset-items', function() {
+
+        resetAddItemsView();
+
+    });
+
+    function resetAddItemsView() {
+        $(".item-count").html("0");
+        finalStartingPrice = 0;
+        finalEndingPrice = 0;
+        finalDiscount = 0;
+        dropDownListItem = "";
+        itemsList = [];
+        $(".dropdown-items").html('');
+        $('.estemeted-rate').html("0");
+        $('.discount').html("");
+
+        var nextStepDisabled = totalItemCount <= 0 ? false : true;
+        $('#btn-book-items').toggleClass('disabled', nextStepDisabled);
+
+        $(".order-items-list").html('');
+        console.log(itemsList, Order_info);
+    }
+
+    $("#btn-book-items").click(function() {
+
+    });
+
+
+    /* Function to Show Total Items Price Start */
+    function GetPriceRange() {
+
+        var calculatedVolume = totalVolume;
+        var itemCount = totalItemCount;
+
+        var pIdx = -1;
+        if (itemCount > 0) {
+
+            var pricing = price.Category_Price;
+            var siOffset = Offset;
+            console.log(pricing);
+            //pIdx = Math.floor((calculatedVolume * 12).toFixed(2));
+            //var basePrice = pricing[pIdx].StartingPrice;
+            //pIdx = calculatedVolume < .0415 ? 0 : Math.floor((calculatedVolume * 12).toFixed(2)) + 1;
+            //var basePrice = pIdx >= pricing.length ? pricing[pricing.length - 1].EndingPrice : pricing[pIdx].StartingPrice;
+            if (calculatedVolume < .083) pIdx = 0;
+            else if (calculatedVolume < .125) pIdx = 1;
+            else pIdx = Math.floor((calculatedVolume * 12).toFixed(2)) + 1;
+
+            var basePrice = pIdx >= pricing.length ? pricing[pricing.length - 1].EndingPrice : pricing[pIdx].StartingPrice;
+            var foffset = itemCount == 1 ? siOffset : (calculatedVolume > .333 ? price.Price_Range.High : price.Price_Range.Low);
+            var startingPrice = Math.floor(foffset >= 0 ? basePrice : basePrice + foffset);
+            var endingPrice = Math.floor(foffset >= 0 ? basePrice + foffset : basePrice);
+
+            var lbod = bod;
+            if (startingPrice < 100) lbod = 0;
+
+            var priceStr = endingPrice > startingPrice ? '<span class="text-danger">$' + startingPrice + '-$' + endingPrice + '</span>' : '<span class="text-danger">$' + startingPrice + '</span>';
+            var offerStr = lbod > 0 ? '<span class="text-dark d-none-xs"> (-$' + lbod + ')</span>' : '';
+
+            $('.estemeted-rate').html(priceStr);
+            $('.discount').html(offerStr);
+            finalStartingPrice = startingPrice;
+            finalEndingPrice = endingPrice;
+            finalDiscount = lbod;
+            $('.final-price').html(priceStr + offerStr);
+
+
+            var nextStepDisabled = totalItemCount > 0 ? false : true;
+            $('#btn-book-items').toggleClass('disabled', nextStepDisabled);
+
+            console.log(startingPrice, endingPrice, lbod);
+        } else {
+
+            $('.estemeted-rate').html("$0");
+            $('.discount').html("");
+            return;
+        }
+
+
+        // GetPIInfo("items", startingPrice, endingPrice);
+
+    } // GetPriceRange()
+
 
 
     // Add/remove pickup trucks
@@ -250,6 +482,7 @@ $(document).ready(function() {
             var startingPrice = Math.floor(foffset >= 0 ? basePrice : basePrice + foffset);
             var endingPrice = Math.floor(foffset >= 0 ? basePrice + foffset : basePrice);
             console.log(truck_total, basePrice, foffset, startingPrice, endingPrice);
+
             var lbod = bod;
             if (startingPrice < 100) lbod = 0;
             var priceStr = endingPrice > startingPrice ? '$' + startingPrice + '-$' + endingPrice : '$' + startingPrice;
@@ -281,36 +514,7 @@ $(document).ready(function() {
 
     }
 
-    function resetAddItemsView() {
 
-        // Clear items list
-        $("#items-slider").each(function() {
-
-            $('.item').removeClass('selected');
-            $('.item-count').html(0);
-            $('.item-data').attr({ "data-item-totalcount": "0", "data-item-totalvolume": "0" });
-
-        });
-
-        // Remove green box around category icons
-        $('#categories-slider').find('a').removeClass("active");
-
-        $('#categories-slider li:first-child a').addClass('active');
-
-        $("#total-items").val(0);
-        $("#total-volume").val(0);
-        $("#items-running-total").val('');
-        $('.pe-dropdown-menu').children().remove();
-        $('#conf-items-list').children().remove();
-        $('.ai-price-range').html("$0");
-        $('.price-discount').html('');
-        $('#BONotesHF').val('');
-
-
-        // Disable next step button
-        $('#btn-book-ai').toggleClass('disabled', true);
-
-    }
 
     function resetTruckloadsView() {
         truck_total = 0;
@@ -349,9 +553,7 @@ $(document).ready(function() {
         resetTruckloadsView();
     });
 
-    $(".btn-reset-items").click(function() {
-        resetAddItemsView();
-    });
+
 
 
     $(".btn-book-now").click(function() {
@@ -439,9 +641,9 @@ $(document).ready(function() {
         });
     }
 
-    $("close-modal").click(
-        function() {
-            location.reload();
-        }
-    );
+    // $("close-modal").click(
+    //     function() {
+    //         location.reload();
+    //     }
+    // );
 });

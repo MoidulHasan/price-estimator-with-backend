@@ -235,38 +235,38 @@
 
                                     <div class="swiper-wrapper ps-3 p-0 m-0">
                                         <div class="swiper-slide active">
-                                            <a href="#" data-category="Couches &amp; Chairs" data-slide="0" class="">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_Couches_and_Chairs.png" />
+                                            <a href="#" data-category="Couches_and_Chairs" data-slide="0" class="cat-slide">
+                                                <img class="Couches_and_Chairs img-responsive cat-img" src="<?php echo $path; ?>/images/ico_Couches_and_Chairs.png" />
                                             </a>
                                             <span>Couches &amp; Chairs</span>
                                         </div>
                                         <div class="swiper-slide">
-                                            <a href="#" data-category="Tables &amp; Dressers" data-slide="1" class="cat-slide">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_Tables_and_Dressers.png" />
+                                            <a href="#" data-category="Tables_and_Dressers" data-slide="1" class="cat-slide">
+                                                <img class="Tables_and_Dressers img-responsive cat-img" src="<?php echo $path; ?>/images/ico_Tables_and_Dressers.png" />
                                             </a>
                                             <span>Tables &amp; Dressers</span>
-                                        </div>
+                                        </div> 
                                         <div class="swiper-slide">
-                                            <a href="#" data-category="Electronics" data-slide="2" class="cat-slide">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_electronics.png" />
+                                            <a href="#" data-category="electronics" data-slide="2" class="cat-slide">
+                                                <img class="electronics img-responsive cat-img p-0 m-0" src="<?php echo $path; ?>/images/ico_electronics.png" />
                                             </a>
                                             <span>Electronics</span>
                                         </div>
                                         <div class="swiper-slide">
-                                            <a href="#" data-category="Appliances" data-slide="3" class="cat-slide">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_appliances.png" />
+                                            <a href="#" data-category="appliances" data-slide="3" class="cat-slide">
+                                                <img class="appliances img-responsive cat-img" src="<?php echo $path; ?>/images/ico_appliances.png" />
                                             </a>
                                             <span>Appliances</span>
                                         </div>
                                         <div class="swiper-slide">
                                             <a href="#" data-category="Mattresses" data-slide="4" class="cat-slide">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_Mattresses.png" />
+                                                <img class="Mattresses img-responsive cat-img" src="<?php echo $path; ?>/images/ico_Mattresses.png" />
                                             </a>
                                             <span>Mattresses</span>
                                         </div>
                                         <div class="swiper-slide">
-                                            <a href="#" data-category="Miscellaneous" data-slide="5" class="cat-slide">
-                                                <img class="img-responsive" src="<?php echo $path; ?>/images/ico_miscellaneous.png" />
+                                            <a href="#" data-category="miscellaneous" data-slide="5" class="cat-slide">
+                                                <img class="miscellaneous img-responsive cat-img" src="<?php echo $path; ?>/images/ico_miscellaneous.png" />
                                             </a>
                                             <span>Miscellaneous</span>
                                         </div>
@@ -283,15 +283,15 @@
                                 </h3>
                             </div>
                             <div class="col-3">
-                                <button class="btn btn-danger btn-sm btn-reset" type="button">
+                                <button class="btn btn-danger btn-sm btn-reset-items" type="button">
                                     <span>Clear&nbsp;</span><span class="hidden-xs">Items&nbsp;</span><i
-                                        class="fa fa-rotate-left jk-red"></i>
+                                        class="fa fa-rotate-left"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div id="item_list" class="col-12 row p-0 m-0 bg-custom-truck inner-shadow p-1 text-dark">
-                            <h6 id="item-key" class="col-6"><span id="item-count"></span> <span id="item-name"></span></h6>
+                        <div id="item_list" class="col-12 p-0 m-0 bg-custom-truck inner-shadow p-2 text-dark">
+                            
                         </div>
 
                         <div class="row pt-3">
@@ -304,7 +304,7 @@
                                 <p class="small m-0">* excludes jobs $99 and under</p>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now" id="btn-book-jk-truck" type="button">
+                                <button  class="btn button-custom w-100 p-1 mt-1 text-light fw-bold btn-book-now disabled" id="btn-book-items" type="button">
                                     Pick These Up!
                                 </button>
                             </div>
